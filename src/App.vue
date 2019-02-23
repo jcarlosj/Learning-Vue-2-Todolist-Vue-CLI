@@ -1,60 +1,83 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
-  </div>
+    <div class="container">
+
+        <div class="mx-auto" style="width: 70%;">
+            <h2 class="center">Tareas con Vue 2</h2>
+        </div>
+
+        <div id="app" class="mx-auto card m-4" style="width: 70%;">
+            <div class="card-body">
+                <h5 class="card-title">Listado de tareas</h5>
+
+                <ul class="list-group tasks">
+                    <li is="app-task" v-for="(task, index) in tasks" :task="task" :index="index" :key="task .id" @remove="deleteTask"></li>
+                </ul>
+                <a @click="deleteTasksCompleted()" href="#">Eliminar todas las tareas completadas</a>
+                <br>
+                <form @submit.prevent="createTask" class="form-row">
+                    <div class="col-9">
+                        <input v-model="new_task" class="form-control" type="text">
+                    </div>
+                    <div class="col-3 ">
+                        <button class="btn btn-primary w-100">Agregar tarea</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer class="mx-auto" style="width: 70%;">
+            <p>2019 - Aprendiendo Vue 2 con Styde</p>
+        </footer>
+
+    </div>
 </template>
 
 <script>
+// Instancia de aplicación "Listado de Tareas"
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+    // Define la 'data' como una función por que se trata de un componente
+    data: function() {
+        return {
+            new_task: '',
+            tasks: [
+                {
+                    description: 'Aprender Foundation',
+                    pending: true
+                },
+                {
+                    description: 'Aprender Angular',
+                    pending: true
+                },
+                {
+                    description: 'Aprender Gulp',
+                    pending: false
+                },
+                {
+                    description: 'Aprender Vue',
+                    pending: false
+                }
+            ]
+        }
+    },
+    methods: {
+        createTask() {
+            this .tasks .push({
+                description: this .new_task,
+                pending: true,
+                editing: false
+            });
+            this .new_task = '';
+        },
+        deleteTask( index ) {                             // 'index' hace parte de la deficinion del componente 'app-task'
+            this .tasks .splice( index, 1 );              // Elimina la tarea del Array con el indice indicado 'index'
+        },
+        deleteTasksCompleted() {
+            this .tasks = this .tasks .filter( ( task ) => {
+                return task .pending;
+            });
+        }
     }
-  }
 }
 </script>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
+<style lang="scss"></style>
