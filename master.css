@@ -1,3 +1,12 @@
+
+.tasks input {
+    border: 0;
+}
+
+.tasks input:focus {
+    outline: none;
+}
+
 .checkbox-disabled, .checkbox-disabled:hover {
     color: #6c757d;
 }
@@ -7,13 +16,6 @@
     text-decoration: line-through;
 }
 
-.tasks input {
-    border: 0;
-}
-
-.tasks input:focus {
-    outline: none;
-}
 
 .tasks {
     margin-bottom: 40px;

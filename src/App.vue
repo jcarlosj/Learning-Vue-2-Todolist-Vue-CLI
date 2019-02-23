@@ -33,7 +33,9 @@
 </template>
 
 <script>
-// Instancia de aplicación "Listado de Tareas"
+import Task from './Task.vue'
+
+// Componente 'app' antes Instancia principal de aplicación "Listado de Tareas"
 export default {
     // Define la 'data' como una función por que se trata de un componente
     data: function() {
@@ -58,6 +60,10 @@ export default {
                 }
             ]
         }
+    },
+    // Registra componentes locales dentro de otro componente (o el objeto 'vm' principal)
+    components: {
+        'app-task': Task
     },
     methods: {
         createTask() {
